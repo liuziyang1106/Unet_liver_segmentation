@@ -1,4 +1,6 @@
+import sys
 import paddle.fluid as fluid
+sys.path.append('/home/aistudio/external-libraries')
 
 image = fluid.data(name="image", shape=[None, 784], dtype='float32')
 label = fluid.data(name="label", shape=[None, 1], dtype='int64')
