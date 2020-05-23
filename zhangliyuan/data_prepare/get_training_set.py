@@ -13,6 +13,8 @@ import SimpleITK as sitk
 import scipy.ndimage as ndimage
 import parameter as para
 
+import warnings
+warnings.filterwarnings('ignore', '.*output shape of zoom.*')
 
 print(os.path.split(sys.path[0])[0])
 
