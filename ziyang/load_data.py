@@ -22,11 +22,12 @@ def load_data(excel_path):
     ref_id = sorted(os.listdir(data_path))
     for i in range(len(train_id)):
         for gt_file_name in os.listdir(gt_path):
-            if train_id[i] in gt_file_name:
-                gt_data = read_data(gt_path+gt_file_name)
-                train_data = read_data(data_path+ref_id[i])
-                print(train_data.shape)
-                print(gt_data.shape)
+            if train_id[i] not in gt_file_name:
+                continue
+            gt_data = read_data(gt_path+gt_file_name)
+            train_data = read_data(data_path+ref_id[i])
+            print(train_data.shape)
+            print(gt_data.shape)
             # print(gt_file_name)
 
 
