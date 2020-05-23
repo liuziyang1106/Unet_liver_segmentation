@@ -26,8 +26,9 @@ def load_data(excel_path):
                 continue
             gt_data = read_data(gt_path+gt_file_name)
             train_data = read_data(data_path+ref_id[i])
-            print(train_data.shape)
-            print(gt_data.shape)
+
+            out = np.concatenate([train_data,gt_data],axis=3)
+            print(out.shape)
             # print(gt_file_name)
 
 
@@ -38,8 +39,8 @@ def test_load():
             train_id_number = "-"+train_file_name.split("-")[1]
             gt_id_number = "-"+gt_file_name.split("-")[1]
 
-            print(train_id_number)
-            print(gt_id_number)
+            # print(train_id_number)
+            # print(gt_id_number)
             if train_id_number == gt_id_number:
                 train_data = read_data(data_path+train_file_name)
                 gt = read_data(gt_path+gt_file_name)
