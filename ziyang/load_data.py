@@ -4,8 +4,8 @@ import nibabel as nib
 import numpy as np
 import pandas as pd
 
-data_path = "/home/aistudio/work/data/train_data/"
-gt_path = "/home/aistudio/work/data/gt/"
+data_path = "/home/aistudio/work/code/Unet_liver_segmentation/data/prep/ct/"
+gt_path = "/home/aistudio/work/code/Unet_liver_segmentation/data/prep/seg/"
 excel_path = "/home/aistudio/work/data/train.csv"
 
 def read_data(file_name):
@@ -44,11 +44,12 @@ def test_load():
             if train_id_number == gt_id_number:
                 train_data = read_data(data_path+train_file_name)
                 gt = read_data(gt_path+gt_file_name)
-                out = np.concatenate([train_data,gt],axis=3)
-                print("shape is equal: ",out.shape)
+                # out = np.concatenate([train_data,gt],axis=3)
+                print("ground truth shape: ",gt.shape)
+                print("train data shape: ",train_data.shape)
                 n+=1
     print(n)
 
 
-load_data(excel_path)
-# test_load()
+# load_data(excel_path)
+test_load()
