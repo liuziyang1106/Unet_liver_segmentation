@@ -21,12 +21,12 @@ print(os.path.split(sys.path[0])[0])
 training_set_path="/home/aistudio/work/code/Unet_liver_segmentation/data/prep/"
 train_ct_path="/home/aistudio/work/data/train_data/"
 train_seg_path="/home/aistudio/work/data/gt/"
-upper=255                     
-lower=0                       
+upper=200                   
+lower=-200                     
 slice_thickness=1                       
-down_scale=1                       
+down_scale=0.5                       
 expand_slice=20                      
-size=20                      
+size=48                     
 
 
 
