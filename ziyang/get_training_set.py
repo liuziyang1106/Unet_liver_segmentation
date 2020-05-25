@@ -18,27 +18,27 @@ warnings.filterwarnings('ignore', '.*output shape of zoom.*')
 
 print(os.path.split(sys.path[0])[0])
 
-training_set_path="/home/aistudio/work/code/Unet_liver_segmentation/data/prep/"
-train_ct_path="/home/aistudio/work/data/train_data/"
+training_set_path="/home/aistudio/work/data/prep_0.5/"
+train_ct_path="/home/aistudio/work/data/test_data/"
 train_seg_path="/home/aistudio/work/data/gt/"
 upper=200                   
 lower=-200                     
 slice_thickness=1                       
-down_scale=0.5                       
+down_scale=0.5                      
 expand_slice=20                      
 size=48                     
 
 
 
-if os.path.exists(training_set_path):
-    shutil.rmtree(training_set_path)
+# if os.path.exists(training_set_path):
+#     shutil.rmtree(training_set_path)
 
-new_ct_path = os.path.join(training_set_path, 'ct')
+new_ct_path = os.path.join(training_set_path, 'test')
 new_seg_dir = os.path.join(training_set_path, 'seg')
 
-os.mkdir(training_set_path)
+# os.mkdir(training_set_path)
 os.mkdir(new_ct_path)
-os.mkdir(new_seg_dir)
+# os.mkdir(new_seg_dir)
 
 start = time()
 for file in tqdm(os.listdir(train_ct_path)):
@@ -90,10 +90,10 @@ for file in tqdm(os.listdir(train_ct_path)):
 
     new_seg.SetDirection(ct.GetDirection())
     new_seg.SetOrigin(ct.GetOrigin())
-    new_seg.SetSpacing((ct.GetSpacing()[0], ct.GetSpacing()[1], slice_thickness))
+    new_seg.SetSpacing((ct.GetSpacing()[0] * int(1 / down_scale), ct.GetSpacing()[1] * int(1 / down_scale), slice_thickness))
 
-    sitk.WriteImage(new_ct, os.path.join(new_ct_path, file))
-    sitk.WriteImage(new_seg, os.path.join(new_seg_dir, file.replace('volume', 'segmentation')))
+    sitk.WriteImage(new_ct, os.path.join(new_ct_path, file).replace('.nii', '.nii.gz'))
+    sitk.WriteImage(new_seg, os.path.join(new_seg_dir, file.replace('volume', 'segmentation')).replace('.nii', '.nii.gz'))
     #.replace('.nii', '.nii.gz')
 
 
