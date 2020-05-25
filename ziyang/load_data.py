@@ -10,8 +10,8 @@ gt_path = "/home/aistudio/work/data/prep_0.5/seg/"
 def read_data(file_name):
     data = nib.load(file_name)
     data = data.get_fdata()
-    # data = data - np.mean(data)
-    # data = data / np.std(data)
+    data = data - np.mean(data)
+    data = data / np.std(data)
     data =  np.expand_dims(data,axis=3)
     return data
 
@@ -33,5 +33,15 @@ def test_load():
                 n+=1
     print(n)
 
+def load_data():
+    n = 0
+    for file_name in os.listdir(data_path):
+        train_data_path = os.path.join(data_path, file_name)
+        gt_data_path = os.path.join(gt_path, file_name.replace('volume', 'segmentation'))
+        train_data = read_data(train_data_path)
+        gt = read_data(gt_data_path)
+        print("ground truth shape: ",gt.shape)
+        print("train data shape: ",train_data.shape)
 
-test_load()
+# test_load()
+load_data()
