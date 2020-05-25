@@ -21,6 +21,7 @@ print(os.path.split(sys.path[0])[0])
 training_set_path="/home/aistudio/work/data/prep_0.5/"
 train_ct_path="/home/aistudio/work/data/test_data/"
 train_seg_path="/home/aistudio/work/data/gt/"
+
 upper=200                   
 lower=-200                     
 slice_thickness=1                       
@@ -59,7 +60,7 @@ for file in tqdm(os.listdir(train_ct_path)):
 
     # 对CT数据在横断面上进行降采样,并进行重采样,将所有数据的z轴的spacing调整到1mm
     ct_array = ndimage.zoom(ct_array, (ct.GetSpacing()[-1] / slice_thickness, down_scale, down_scale), order=3)
-    seg_array = ndimage.zoom(seg_array, (ct.GetSpacing()[-1] / slice_thickness, 1, 1), order=0)
+    seg_array = ndimage.zoom(seg_array, (ct.GetSpacing()[-1] / slice_thickness, down_scale, down_scale), order=0)
 
     # 找到肝脏区域开始和结束的slice，并各向外扩张slice
     z = np.any(seg_array, axis=(1, 2))
